@@ -19,7 +19,7 @@ void init_field(char* field[],char* figure[],char* color[])
   int i,end;
   for(i=0,end=WIDTH*DEPTH;i<end;++i)
   {
-    sprintf(&(*field)[6*i],"\x1b[3%dm%c",0,moving);
+    sprintf(&(*field)[6*i],"\x1b[3%dm%c",0,empty);
   }
 
   set_field(figure,color,'9','|',0,WIDTH,DEPTH);
@@ -47,6 +47,7 @@ void init_data(TETRIS* data)
   (*data).score = 0;
   (*data).point = 0;
   (*data).type = 0;
+  (*data).rotate = 0;
   init_figure_color((*data).field,&(*data).figure,&(*data).color);
   init_field(&(*data).field,(*data).figure,(*data).color);
 }

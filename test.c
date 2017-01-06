@@ -17,6 +17,7 @@ void malloctest(char** test,const int len)
 int main(int argc,char *argv[])
 {
   printf("test\n");
+  printf("%c\n",(char)(0x30+3));
 
   const int len = 10;
   char str[len];
