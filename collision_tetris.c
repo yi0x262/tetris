@@ -12,15 +12,15 @@ int collision_check(char* figure[],int point,const int type,const int rotate)
   return 1;//OK
 }
 
-int move_check(TETRIS* data,const int move)
+int move_tetro(TETRIS* data,const int move,const int rotate)
 {
-  return collision_check((*data).figure,(*data).point + move,(*data).type,(*data).rotate);
-}
-
-int move_tetro(TETRIS* data,const int move)
-{
-  int result;
-  result = move_check(data,move);
-  if(result)(*data).point += move;
+  int result,new_point,new_rotate;
+  new_point = (*data).point + move;
+  new_rotate = ((*data).rotate + rotate)&0x0003;//0<rotate<3
+  result = collision_check((*data).figure,new_point,(*data).type,new_rotate);
+  if(result){
+    (*data).point = new_point;
+    (*data).rotate = new_rotate;
+  }
   return result;
 }

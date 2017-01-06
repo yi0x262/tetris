@@ -1,13 +1,23 @@
 #include"tetris.h"
 
-#include<stdlib.h>
+#include<unistd.h>
 int main(){
   init_tetris();
 
   int t;
-  for(t=0;t<11;++t)
+  t = 0;
+  print_tetris();
+  while(1)
   {
-    print_tetris();
+    if(input_tetris(0))print_tetris();
+    usleep(1000);
+    t += 1;
+    if(t > 100)
+    {
+      drop_tetris();
+      print_tetris();
+      t = 0;
+    }
   }
   return 0;
 }

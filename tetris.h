@@ -1,6 +1,6 @@
-#define PLAYER 2
+#define PLAYER 10
 #define WIDTH 10
-#define DEPTH 10
+#define DEPTH 40
 
 //parameter
 
@@ -25,3 +25,5 @@ extern const int tetris_map[TETRO_TYPE][4][4];
 //function
 void init_tetris(void);
 void print_tetris(void);
+int input_tetris(int);
+void drop_tetris(void);
