@@ -3,15 +3,19 @@
 
 void appear_tetro(TETRIS* data,const char c)
 {
-  int j,p;
+  char** fgr = data->figure;
+  char** clr = data->color;
+  fgr += data->point;
+  clr += data->point;
   const int* map;
-  p = (*data).point;
-  map = tetris_map[(*data).type][(*data).rotate];
-  for(j=0;j<4;++j)
+  map = tetris_map[data->type][data->rotate];
+  int i;
+  for(i=0;i<4;++i)
   {
-    p += map[j];
-    *(*data).color[p] = (char)(0x31+(*data).type);
-    *(*data).figure[p] = c;
+    fgr += *(map);
+    clr += *(map++);
+    **fgr = c;
+    **clr = (char)(0x31+data->type);
   }
 }
 void appear_tetris(TETRIS data[],const char c)
@@ -19,38 +23,51 @@ void appear_tetris(TETRIS data[],const char c)
   int i;
   for(i=0;i<PLAYER;++i)
   {
+    if(data[i].game_over)continue;
     appear_tetro(&data[i],c);
   }
 }
 
 void print_state(TETRIS data[])
 {
+  const int num = 6;
+  static char c[20];
+  sprintf(c,"%%%ds:%%%dd   ",num,WIDTH-num-1);
+
   int i;
   printf("\x1b[39m");
   for(i=0;i<PLAYER;++i)
   {
-    printf("score:%6d\t",data[i].score);
+    printf(c,"score",data[i].score);
   }
   printf("\n");
   for(i=0;i<PLAYER;++i)
   {
-    printf("type:%7d\t",data[i].type);
+    printf(c,"type",data[i].type);
   }
   printf("\n");
   for(i=0;i<PLAYER;++i)
   {
-    printf("rotate:%5d\t",data[i].rotate);
+    printf(c,"rotate",data[i].rotate);
   }
   printf("\n");
   for(i=0;i<PLAYER;++i)
   {
-    printf("point:%6d\t",data[i].point);
+    printf(c,"point",data[i].point);
+  }
+  printf("\n");
+  for(i=0;i<PLAYER;++i)
+  {
+    printf(c,"over",data[i].game_over);
   }
   printf("\n");
 }
 
 void print_field(TETRIS data[])
 {
+  static char c[20];
+  sprintf(c,"%%.%ds   ",WIDTH*6);
+
   printf("\x1b[0;0H");//move 0,0
 
   appear_tetris(data,moving);
@@ -59,10 +76,9 @@ void print_field(TETRIS data[])
   int d,i;
   for(d = 0;d < DEPTH;++d)
   {
-    printf("\x1b[39m");
     for(i=0;i<PLAYER;++i)
     {
-      printf("|%.60s\x1b[39m|\t",&data[i].field[6*WIDTH*d]);
+      printf(c,&data[i].field[6*WIDTH*d]);
     }
     printf("\n");
   }

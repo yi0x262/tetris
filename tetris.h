@@ -1,6 +1,6 @@
-#define PLAYER 10
-#define WIDTH 10
-#define DEPTH 40
+#define PLAYER 5
+#define WIDTH 16
+#define DEPTH 24
 
 //parameter
 
@@ -17,6 +17,8 @@ typedef struct tetris_data
   char* field;
   char** figure;//charactors in field
   char** color;//chars' color number in field
+
+  int game_over;
 }TETRIS;
 
 #define TETRO_TYPE 7
