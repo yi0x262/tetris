@@ -17,6 +17,7 @@ typedef struct tetris_data
   char* field;
   char** figure;//charactors in field
   char** color;//chars' color number in field
+  int stack;
 
   int game_over;
 }TETRIS;

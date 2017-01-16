@@ -37,5 +37,5 @@ int remove_line(char* figure[],char* color[])
   }
   for(d=count-1;d==0;--d)empty_line(figure+d*WIDTH);
 
-  return count*count;
+  return count;
 }

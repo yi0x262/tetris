@@ -8,6 +8,7 @@
 #include"collision_tetris.h"
 #include"input.h"
 #include"drop_tetris.h"
+#include"stack_tetris.h"
 
 const char empty = ' ';
 const char moving = '@';
@@ -71,9 +72,18 @@ int input_tetris(int id)
 
 void drop_tetris(void)
 {
-  int i;
+  int i,j,lines;
   for(i=0;i<PLAYER;++i)
   {
-    drop_tetro(&tetris[i]);
+    lines = drop_tetro(&tetris[i]);
+    for(j=0;j<PLAYER*(lines>0);++j)
+    {
+      if(i==j)continue;
+      tetris[j].stack += lines;
+    }
+  }
+  for(i=0;i<PLAYER;++i)
+  {
+    stack_tetris(&tetris[i]);
   }
 }

@@ -7,17 +7,20 @@
 #include"remove_line.h"
 
 
-void drop_tetro(TETRIS* data)
+int drop_tetro(TETRIS* data)
 {
-  if(data->game_over)return;
+  int lines = 0;
+  if(data->game_over)return lines;
   if(!move_tetro(data,WIDTH,0))
   {
     //move line
     appear_tetro(data,fixed);
-    data->score += remove_line(data->figure,data->color);
+    lines = remove_line(data->figure,data->color);
+    data->score += lines*lines;
     if(!spawn_tetris(data))
     {
       game_over(data);
     }
   }
+  return lines;
 }

@@ -1,1 +1,1 @@
-void drop_tetro(TETRIS*);
+int drop_tetro(TETRIS*);

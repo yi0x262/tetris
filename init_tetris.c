@@ -54,6 +54,7 @@ void init_data(TETRIS* data)
   data->point = 0;
   data->type = 0;
   data->rotate = 0;
+  data->stack = 0;
   init_figure_color(data->field,data->figure,data->color);
   init_field(data->field,data->figure,data->color);
 
